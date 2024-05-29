@@ -1,0 +1,74 @@
+oracle_gate = QuantumCircuit(state_prep.qubits)
+
+clause_1 = circuit.library.OR(2, [-1,1])
+clause_2 = circuit.library.OR(3, [1,1,-1])
+clause_3 = circuit.library.OR(2, [1,1])
+clause_4 = circuit.library.OR(3, [-1,-1,1])
+clause_5 = circuit.library.OR(2, [-1,-1])
+clause_6 = circuit.library.OR(3, [-1,-1,1])
+and_grouping = circuit.library.AND(6, [1,1,1,1,1,1])
+
+qubits = np.array(oracle_gate.qubits)
+
+
+oracle_gate = oracle_gate.compose(circuit.library.XGate(), qubits=qubits.take([0]))
+oracle_gate = oracle_gate.compose(circuit.library.OR(2), qubits=qubits.take([0,1,5]))
+oracle_gate = oracle_gate.compose(circuit.library.XGate(), qubits=qubits.take([0]))
+
+oracle_gate = oracle_gate.compose(circuit.library.XGate(), qubits=qubits.take([2]))
+oracle_gate = oracle_gate.compose(circuit.library.OR(3), qubits=qubits.take([0,1,2,6]))
+oracle_gate = oracle_gate.compose(circuit.library.XGate(), qubits=qubits.take([2]))
+
+oracle_gate = oracle_gate.compose(circuit.library.OR(2), qubits=qubits.take([2,3,7]))
+
+oracle_gate = oracle_gate.compose(circuit.library.XGate(), qubits=qubits.take([1]))
+oracle_gate = oracle_gate.compose(circuit.library.XGate(), qubits=qubits.take([2]))
+oracle_gate = oracle_gate.compose(circuit.library.OR(3), qubits=qubits.take([1,2,3,8]))
+oracle_gate = oracle_gate.compose(circuit.library.XGate(), qubits=qubits.take([2]))
+oracle_gate = oracle_gate.compose(circuit.library.XGate(), qubits=qubits.take([1]))
+
+oracle_gate = oracle_gate.compose(circuit.library.XGate(), qubits=qubits.take([3]))
+oracle_gate = oracle_gate.compose(circuit.library.XGate(), qubits=qubits.take([4]))
+oracle_gate = oracle_gate.compose(circuit.library.OR(2), qubits=qubits.take([3,4,9]))
+oracle_gate = oracle_gate.compose(circuit.library.XGate(), qubits=qubits.take([3]))
+oracle_gate = oracle_gate.compose(circuit.library.XGate(), qubits=qubits.take([4]))
+
+oracle_gate = oracle_gate.compose(circuit.library.XGate(), qubits=qubits.take([2]))
+oracle_gate = oracle_gate.compose(circuit.library.XGate(), qubits=qubits.take([3]))
+oracle_gate = oracle_gate.compose(clause_6, qubits=qubits.take([2,3,4,10]))
+oracle_gate = oracle_gate.compose(circuit.library.XGate(), qubits=qubits.take([2]))
+oracle_gate = oracle_gate.compose(circuit.library.XGate(), qubits=qubits.take([3]))
+
+oracle_gate = oracle_gate.compose(and_grouping, qubits=qubits[5:12])
+
+oracle_gate = oracle_gate.compose(circuit.library.XGate(), qubits=qubits.take([2]))
+oracle_gate = oracle_gate.compose(circuit.library.XGate(), qubits=qubits.take([3]))
+oracle_gate = oracle_gate.compose(clause_6, qubits=qubits.take([2,3,4,10]))
+oracle_gate = oracle_gate.compose(circuit.library.XGate(), qubits=qubits.take([2]))
+oracle_gate = oracle_gate.compose(circuit.library.XGate(), qubits=qubits.take([3]))
+
+oracle_gate = oracle_gate.compose(circuit.library.XGate(), qubits=qubits.take([3]))
+oracle_gate = oracle_gate.compose(circuit.library.XGate(), qubits=qubits.take([4]))
+oracle_gate = oracle_gate.compose(circuit.library.OR(2), qubits=qubits.take([3,4,9]))
+oracle_gate = oracle_gate.compose(circuit.library.XGate(), qubits=qubits.take([3]))
+oracle_gate = oracle_gate.compose(circuit.library.XGate(), qubits=qubits.take([4]))
+
+oracle_gate = oracle_gate.compose(circuit.library.XGate(), qubits=qubits.take([1]))
+oracle_gate = oracle_gate.compose(circuit.library.XGate(), qubits=qubits.take([2]))
+oracle_gate = oracle_gate.compose(circuit.library.OR(3), qubits=qubits.take([1,2,3,8]))
+oracle_gate = oracle_gate.compose(circuit.library.XGate(), qubits=qubits.take([2]))
+oracle_gate = oracle_gate.compose(circuit.library.XGate(), qubits=qubits.take([1]))
+
+oracle_gate = oracle_gate.compose(circuit.library.OR(2), qubits=qubits.take([2,3,7]))
+
+oracle_gate = oracle_gate.compose(circuit.library.XGate(), qubits=qubits.take([2]))
+oracle_gate = oracle_gate.compose(circuit.library.OR(3), qubits=qubits.take([0,1,2,6]))
+oracle_gate = oracle_gate.compose(circuit.library.XGate(), qubits=qubits.take([2]))
+
+oracle_gate = oracle_gate.compose(circuit.library.XGate(), qubits=qubits.take([0]))
+oracle_gate = oracle_gate.compose(circuit.library.OR(2), qubits=qubits.take([0,1,5]))
+oracle_gate = oracle_gate.compose(circuit.library.XGate(), qubits=qubits.take([0]))
+
+
+oracle_gate.barrier()
+oracle_gate.draw('mpl')
